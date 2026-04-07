@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nanoparticle Characterization Survey — Holtra AB</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: #f5f4f0;
+  color: #1c1c1c;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+  line-height: 1.5;
+}
+
+.card {
+  max-width: 620px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2.5rem 2.5rem 2rem;
+  border: 1px solid #e2e0d8;
+}
+
+.brand {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #0f6e56;
+  margin-bottom: 2rem;
+}
+
+.progress-track {
+  height: 3px;
+  background: #e8e6de;
+  border-radius: 2px;
+  margin-bottom: 2.5rem;
+}
+.progress-fill {
+  height: 100%;
+  background: #0f6e56;
+  border-radius: 2px;
+  transition: width .4s ease;
+}
+
+.sec-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #0f6e56;
+  margin-bottom: .35rem;
+}
+.sec-title {
+  font-size: 21px;
+  font-weight: 600;
+  color: #1c1c1c;
+  margin-bottom: .4rem;
+}
+.sec-sub {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.q {
+  margin-bottom: 1.75rem;
+}
+.q-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1c1c1c;
+  margin-bottom: .6rem;
+  line-height: 1.5;
+}
+.q-opt {
+  font-size: 11px;
+  font-weight: 400;
+  color: #b0aea8;
+  margin-left: 5px;
+}
+.q-hint {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: .55rem;
+}
+
+/* Radio */
+.radio-list { display: flex; flex-direction: column; gap: 7px; }
+.radio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 13px;
+  border: 1px solid #e0ded6;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+  user-select: none;
+}
+.radio-row:hover { border-color: #0f6e56; background: #fafffe; }
+.radio-row.on { border-color: #0f6e56; background: #e8f7f2; }
+.radio-dot {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid #ccc;
+  background: #fff;
+  flex-shrink: 0;
+  transition: all .15s;
+}
+.radio-row.on .radio-dot { background: #0f6e56; border-color: #0f6e56; }
+.radio-text { font-size: 13px; color: #333; }
+
+/* Multi-select pills */
+.pill-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  font-size: 13px;
+  padding: 7px 15px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #444;
+  cursor: pointer;
+  transition: all .15s;
+  user-select: none;
+}
+.pill:hover { border-color: #0f6e56; color: #0f6e56; }
+.pill.on { background: #e8f7f2; border-color: #0f6e56; color: #085041; font-weight: 500; }
+
+/* 1-5 rating */
+.stars { display: flex; gap: 0; margin-bottom: 4px; }
+.star-btn {
+  width: 54px; height: 54px;
+  border: none; background: none;
+  cursor: pointer;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 5px; padding: 0;
+}
+.star-circle {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #ccc;
+  background: #fff;
+  transition: all .15s;
+}
+.star-btn:hover .star-circle { border-color: #0f6e56; background: #e8f7f2; }
+.star-btn.on .star-circle { background: #0f6e56; border-color: #0f6e56; }
+.star-n { font-size: 11px; color: #bbb; transition: color .15s; }
+.star-btn.on .star-n { color: #0f6e56; font-weight: 600; }
+.star-ends { display: flex; justify-content: space-between; font-size: 11px; color: #999; padding: 0 5px; }
+
+/* Grid */
+.grid-box { border: 1px solid #e2e0d8; border-radius: 11px; overflow: hidden; }
+.grid-hdr {
+  display: flex; align-items: center;
+  padding: 8px 14px;
+  background: #f8f7f3;
+  border-bottom: 1px solid #e8e6de;
+}
+.grid-hdr-lbl { flex: 1; }
+.grid-hdr-nums { display: flex; }
+.grid-hdr-n { width: 40px; text-align: center; font-size: 11px; color: #999; font-weight: 600; }
+.grid-row {
+  display: flex; align-items: center;
+  padding: 9px 14px;
+  border-bottom: 1px solid #f0eeea;
+}
+.grid-row:last-child { border-bottom: none; }
+.grid-row:nth-child(odd) { background: #faf9f6; }
+.grid-lbl { flex: 1; font-size: 13px; color: #333; padding-right: 10px; line-height: 1.4; }
+.grid-dots { display: flex; }
+.grid-dot-btn {
+  width: 40px; height: 40px;
+  border: none; background: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0;
+}
+.grid-dot {
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  border: 1.5px solid #ccc;
+  background: #fff;
+  transition: all .15s;
+}
+.grid-dot-btn:hover .grid-dot { border-color: #0f6e56; }
+.grid-dot-btn.on .grid-dot { background: #0f6e56; border-color: #0f6e56; }
+
+/* Textarea */
+.txt {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 11px 13px;
+  font-size: 13px;
+  color: #333;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 82px;
+  background: #fff;
+}
+.txt:focus { outline: none; border-color: #0f6e56; }
+
+/* Nav */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #ede;
+  border-top-color: #eee;
+}
+.btn-back {
+  font-size: 13px;
+  color: #aaa;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.btn-back:hover { color: #555; }
+.nav-right { display: flex; align-items: center; gap: 14px; }
+.step-ct { font-size: 12px; color: #bbb; }
+.btn-next {
+  font-size: 13px;
+  font-weight: 600;
+  background: #0f6e56;
+  color: #fff;
+  border: none;
+  padding: 11px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background .15s;
+  letter-spacing: .01em;
+}
+.btn-next:hover { background: #085041; }
+.btn-next:disabled { background: #ccc; cursor: not-allowed; }
+
+/* Done */
+.done {
+  text-align: center;
+  padding: 1.5rem 0 1rem;
+}
+.done-ring {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: #e8f7f2;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+.done h2 { font-size: 20px; font-weight: 600; margin-bottom: .5rem; }
+.done p { font-size: 14px; color: #888; line-height: 1.6; max-width: 340px; margin: 0 auto; }
+
+/* Submitting overlay text */
+.submitting { font-size: 13px; color: #888; text-align: center; padding: 1rem 0; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">Holtra AB &nbsp;·&nbsp; Market Research</div>
+  <div class="progress-track"><div class="progress-fill" id="bar"></div></div>
+  <div id="root"></div>
+</div>
+
+<script>
+const ENDPOINT = 'https://formspree.io/f/xkopyrzl';
+
+const S = [
+  {
+    tag: 'Section 1 of 5',
+    title: 'About you',
+    sub: 'This takes about 7 to 10 minutes. Responses are anonymous and used only for market research.',
+    qs: [
+      { id: 'role', type: 'radio', req: true,
+        label: 'What best describes your role?',
+        opts: ['Principal Investigator / Lab Director', 'Formulation Scientist', 'Analytical Development Scientist', 'CMC / Process Development', 'Lab Manager', 'QA / Regulatory Affairs', 'CDMO / CRO staff', 'Other'] },
+      { id: 'org', type: 'radio', req: true,
+        label: 'What type of organization do you work in?',
+        opts: ['Academic research institution', 'Early-stage biotech (under 200 employees)', 'Mid-size biotech or pharma (200 to 2,000 employees)', 'Large pharma (2,000+ employees)', 'CDMO / CRO', 'Other'] },
+      { id: 'materials', type: 'multi', req: true,
+        label: 'Which of the following do you work with regularly?',
+        hint: 'Select all that apply.',
+        opts: ['Lipid nanoparticles (LNPs)', 'Exosomes / EVs', 'Protein aggregates / biologics', 'Viral vectors', 'Liposomes', 'None of the above'] }
+    ]
+  },
+  {
+    tag: 'Section 2 of 5',
+    title: 'Current workflow',
+    sub: 'These questions help us understand where existing tools fall short.',
+    qs: [
+      { id: 'trust', type: 'rating', req: true,
+        label: 'How often do your current nanoparticle characterization methods produce results you fully trust?',
+        lo: 'Rarely', hi: 'Almost always' },
+      { id: 'pain_grid', type: 'grid', req: false,
+        label: 'Rate how much each of the following limits your work.',
+        hint: '1 = not a limitation at all, 5 = major limitation',
+        rows: ['Speed of measurement', 'Cost per sample', 'Characterizing heterogeneous samples', 'Distinguishing particle sub-populations (e.g. filled vs. empty, EVs vs. lipoproteins)', 'Reproducibility and operator dependence', 'Regulatory documentation burden'] },
+      { id: 'dls_sat', type: 'rating', req: false,
+        label: 'How satisfied are you with DLS for your primary application?',
+        lo: 'Very dissatisfied', hi: 'Very satisfied' },
+      { id: 'nta_sat', type: 'rating', req: false,
+        label: 'How satisfied are you with NTA for your primary application? (Skip if you do not use it.)',
+        lo: 'Very dissatisfied', hi: 'Very satisfied' },
+      { id: 'pain_open', type: 'text', req: false,
+        label: 'In your own words, what is the single biggest frustration with your current nanoparticle characterization setup?',
+        ph: 'Describe the workflow moment that causes the most friction or lost time...' }
+    ]
+  },
+  {
+    tag: 'Section 3 of 5',
+    title: 'Instrument decisions',
+    sub: 'Understanding how instruments get purchased helps us design a better pilot path.',
+    qs: [
+      { id: 'freq', type: 'radio', req: false,
+        label: 'How often does your lab or team acquire new analytical instruments?',
+        opts: ['Every 1 to 2 years', 'Every 3 to 5 years', 'Every 5+ years', 'As needed, no set cycle'] },
+      { id: 'approver', type: 'radio', req: false,
+        label: 'Who has the final say on purchasing a new instrument in the $80K to $120K range?',
+        opts: ['I do / the PI decides', 'Department head or director', 'Procurement or finance committee', 'Multiple approvers required', 'Other'] },
+      { id: 'timeline', type: 'radio', req: false,
+        label: 'How long does it typically take from identifying a need to completing a major instrument purchase?',
+        opts: ['Under 3 months', '3 to 6 months', '6 to 12 months', 'More than 12 months'] },
+      { id: 'pilot_open', type: 'rating', req: false,
+        label: 'How open is your team to piloting a new analytical instrument before committing to purchase?',
+        lo: 'Very reluctant', hi: 'Very open' }
+    ]
+  },
+  {
+    tag: 'Section 4 of 5',
+    title: 'Value and proof',
+    sub: 'What would it take to adopt a new characterization approach?',
+    qs: [
+      { id: 'interest', type: 'rating', req: true,
+        label: 'How interested would you be in an instrument that measures size, concentration, and optical properties simultaneously at the single-particle level, in a single run?',
+        lo: 'Not interested', hi: 'Extremely interested' },
+      { id: 'aaas', type: 'rating', req: false,
+        label: 'Would you consider paying for analysis-as-a-service — sending samples to a vendor for characterization — before deciding whether to purchase an instrument?',
+        lo: 'Definitely not', hi: 'Definitely yes' },
+      { id: 'proof', type: 'multi', req: false,
+        label: 'What would you need to see before trusting results from a new analytical instrument?',
+        hint: 'Select all that apply.',
+        opts: ['Head-to-head comparison vs. NanoSight or DLS', 'Peer-reviewed publication from a lab I know', 'Data from my own sample types', 'Reference from a trusted colleague', 'Demo at a conference', 'Regulatory guidance citing the method', 'A vendor application note is sufficient'] },
+      { id: 'importance_grid', type: 'grid', req: false,
+        label: 'How important is each factor when evaluating a new characterization instrument?',
+        hint: '1 = not important, 5 = essential',
+        rows: ['Peer-reviewed validation data', 'Price relative to existing instruments', 'US-based service and support', 'Integration with existing lab workflows', 'Vendor track record and reputation', 'Speed to first usable data'] }
+    ]
+  },
+  {
+    tag: 'Section 5 of 5',
+    title: 'Looking ahead',
+    sub: 'A few final open questions. These answers are the most valuable part of this survey.',
+    qs: [
+      { id: 'reg_concern', type: 'rating', req: false,
+        label: 'How concerned are you about evolving FDA or EMA requirements for nanoparticle characterization affecting your work in the next 2 years?',
+        lo: 'Not concerned', hi: 'Very concerned' },
+      { id: 'adopt', type: 'text', req: false,
+        label: 'What would need to be true for a new nanoparticle characterization instrument to enter your standard workflow within the next 12 to 18 months?',
+        ph: 'Think about data, price, support, regulatory context, internal approvals...' },
+      { id: 'other', type: 'text', req: false,
+        label: 'Anything else you would like to share — frustrations, wish-list features, or questions for us?',
+        ph: 'Open floor...' }
+    ]
+  }
+];
+
+const ans = {};
+let cur = 0;
+
+function a(sid) { return ans[sid] || (ans[sid] = {}); }
+
+function ratingEl(q, sid) {
+  const v = a(sid)[q.id];
+  let h = '<div class="stars">';
+  for (let i = 1; i <= 5; i++) {
+    h += `<button class="star-btn${v === i ? ' on' : ''}" type="button" onclick="setV('${sid}','${q.id}',${i})">
+      <div class="star-circle"></div><span class="star-n">${i}</span>
+    </button>`;
+  }
+  h += `</div><div class="star-ends"><span>${q.lo}</span><span>${q.hi}</span></div>`;
+  return h;
+}
+
+function radioEl(q, sid) {
+  const v = a(sid)[q.id];
+  return '<div class="radio-list">' + q.opts.map(o =>
+    `<div class="radio-row${v === o ? ' on' : ''}" onclick="setV('${sid}','${q.id}','${esc(o)}')">
+      <div class="radio-dot"></div><span class="radio-text">${o}</span>
+    </div>`
+  ).join('') + '</div>';
+}
+
+function multiEl(q, sid) {
+  const arr = a(sid)[q.id] || [];
+  return '<div class="pill-wrap">' + q.opts.map(o =>
+    `<div class="pill${arr.includes(o) ? ' on' : ''}" onclick="togPill('${sid}','${q.id}','${esc(o)}')">${o}</div>`
+  ).join('') + '</div>';
+}
+
+function gridEl(q, sid) {
+  const vals = a(sid)[q.id] || {};
+  let h = `<div class="grid-box">
+    <div class="grid-hdr">
+      <div class="grid-hdr-lbl"></div>
+      <div class="grid-hdr-nums">${[1,2,3,4,5].map(n=>`<div class="grid-hdr-n">${n}</div>`).join('')}</div>
+    </div>`;
+  q.rows.forEach((row, ri) => {
+    h += `<div class="grid-row">
+      <div class="grid-lbl">${row}</div>
+      <div class="grid-dots">`;
+    for (let i = 1; i <= 5; i++) {
+      h += `<button class="grid-dot-btn${vals[ri] === i ? ' on' : ''}" type="button" onclick="setGrid('${sid}','${q.id}',${ri},${i})">
+        <div class="grid-dot"></div>
+      </button>`;
+    }
+    h += `</div></div>`;
+  });
+  return h + '</div>';
+}
+
+function textEl(q, sid) {
+  const v = a(sid)[q.id] || '';
+  return `<textarea class="txt" placeholder="${q.ph}" onchange="setV('${sid}','${q.id}',this.value)">${v}</textarea>`;
+}
+
+function esc(s) { return s.replace(/'/g, "\\'"); }
+
+function setV(sid, qid, v) { a(sid)[qid] = v; draw(); }
+function togPill(sid, qid, v) {
+  const arr = a(sid)[qid] || (a(sid)[qid] = []);
+  const i = arr.indexOf(v);
+  if (i >= 0) arr.splice(i, 1); else arr.push(v);
+  draw();
+}
+function setGrid(sid, qid, row, v) {
+  if (!a(sid)[qid]) a(sid)[qid] = {};
+  a(sid)[qid][row] = v;
+  draw();
+}
+
+function draw() {
+  const pct = Math.round(((cur + 1) / S.length) * 100);
+  document.getElementById('bar').style.width = Math.min(pct, 100) + '%';
+
+  if (cur >= S.length) {
+    document.getElementById('root').innerHTML = `
+      <div class="done">
+        <div class="done-ring">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M5 13l4 4L19 7" stroke="#0f6e56" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2>Thank you</h2>
+        <p>Your responses have been submitted. We appreciate you taking the time — this will directly shape Holtra's US market approach.</p>
+      </div>`;
+    return;
+  }
+
+  const sec = S[cur];
+  let html = `
+    <div class="sec-tag">${sec.tag}</div>
+    <div class="sec-title">${sec.title}</div>
+    <div class="sec-sub">${sec.sub}</div>`;
+
+  sec.qs.forEach(q => {
+    html += `<div class="q">
+      <div class="q-label">${q.label}${q.req ? '' : '<span class="q-opt">(optional)</span>'}</div>
+      ${q.hint ? `<div class="q-hint">${q.hint}</div>` : ''}`;
+    if (q.type === 'rating') html += ratingEl(q, cur);
+    else if (q.type === 'radio') html += radioEl(q, cur);
+    else if (q.type === 'multi') html += multiEl(q, cur);
+    else if (q.type === 'grid') html += gridEl(q, cur);
+    else if (q.type === 'text') html += textEl(q, cur);
+    html += `</div>`;
+  });
+
+  const last = cur === S.length - 1;
+  html += `
+    <div class="nav">
+      ${cur > 0 ? `<button class="btn-back" type="button" onclick="back()">Back</button>` : `<span></span>`}
+      <div class="nav-right">
+        <span class="step-ct">${cur + 1} of ${S.length}</span>
+        <button class="btn-next" type="button" onclick="${last ? 'submit()' : 'next()'}">
+          ${last ? 'Submit' : 'Next'}
+        </button>
+      </div>
+    </div>`;
+
+  document.getElementById('root').innerHTML = html;
+}
+
+function next() { cur++; draw(); window.scrollTo(0, 0); }
+function back() { cur--; draw(); window.scrollTo(0, 0); }
+
+async function submit() {
+  document.getElementById('root').innerHTML = '<div class="submitting">Submitting...</div>';
+  const flat = {};
+  S.forEach((sec, si) => {
+    const data = ans[si] || {};
+    sec.qs.forEach(q => {
+      const v = data[q.id];
+      if (v === undefined || v === '' || v === null) return;
+      const key = '[' + sec.title + '] ' + q.label.substring(0, 70);
+      flat[key] = typeof v === 'object' ? JSON.stringify(v) : v;
+    });
+  });
+  try {
+    await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(flat)
+    });
+  } catch (e) {}
+  cur = S.length;
+  draw();
+}
+
+draw();
+</script>
+</body>
+</html>
